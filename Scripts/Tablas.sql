@@ -1,4 +1,4 @@
-CREATE DATABASE GimnasioPulgarcito;
+--CREATE DATABASE GimnasioPulgarcito;
 USE GimnasioPulgarcito;
 GO
 
