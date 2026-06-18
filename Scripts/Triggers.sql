@@ -22,3 +22,30 @@ BEGIN
         RETURN;
     END
 END;
+
+GO;
+
+-- Profesor inactivo NO puede dar clases
+
+CREATE TRIGGER tr_Agregar_ClaseProfesor ON ClasesProfesores
+AFTER INSERT
+AS
+BEGIN
+    DECLARE @IdProfesor int
+    DECLARE @IdEmpleado int
+    DECLARE @Estado bit
+
+    SELECT @IdProfesor = IdProfesor FROM inserted
+
+    SELECT @IdEmpleado = IdEmpleado FROM Profesores WHERE IdProfesor = @IdProfesor
+
+    SELECT @Estado = Estado FROM Empleados WHERE IdEmpleado = @IdEmpleado
+
+    IF @Estado = 0
+    BEGIN
+        RAISERROR('El profesor no está activo.', 16, 1)
+        ROLLBACK TRANSACTION
+        RETURN;
+    END
+END;
+
