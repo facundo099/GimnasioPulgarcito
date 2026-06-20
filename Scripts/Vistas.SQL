@@ -2,3 +2,60 @@ USE GimnasioPulgarcito;
 GO
 
 -- Aca van las vistas
+
+CREATE VIEW vw_Empleados AS 
+SELECT
+p.Nombre,
+p.Apellido,
+c.Nombre AS Cargo,
+e.Estado
+from Empleados e 
+INNER JOIN Persona p ON P.IdPersona=e.IdPersona
+INNER JOIN Cargos c ON c.IdCargo=e.IdCargo;
+
+GO;
+
+CREATE VIEW v_GrillaClases AS
+SELECT 
+    hc.IdHorario,
+    cl.Nombre AS Clase,
+    cl.Descripcion AS DescripcionClase,
+    hc.DiaSemana,
+    hc.HoraInicio,
+    hc.HoraFin,
+    p.Nombre + ' ' + p.Apellido AS Profesor
+FROM HorariosClases hc
+INNER JOIN Clases cl
+    ON hc.IdClase = cl.IdClase
+INNER JOIN ClasesProfesores cp
+    ON cl.IdClase = cp.IdClase
+INNER JOIN Profesores prof
+    ON cp.IdProfesor = prof.IdProfesor
+INNER JOIN Empleados emp
+    ON prof.IdEmpleado = emp.IdEmpleado
+INNER JOIN Persona p
+    ON emp.IdPersona = p.IdPersona
+WHERE hc.Estado = 1
+    AND cp.Estado = 1;
+
+GO;
+
+CREATE VIEW v_InscripcionesClases AS
+SELECT 
+    hc.IdHorario,
+    cl.Nombre AS Clase,
+    hc.DiaSemana,
+    hc.HoraInicio,
+    p_cli.Nombre + ' ' + p_cli.Apellido AS Alumno,
+    p_cli.Telefono AS TelefonoAlumno,
+    cc.FechaInscripcion AS FechaDeAlta
+FROM ClasesClientes cc
+INNER JOIN Clientes c
+    ON cc.IdCliente = c.IdCliente
+INNER JOIN Persona p_cli
+    ON c.IdPersona = p_cli.IdPersona
+INNER JOIN HorariosClases hc
+    ON cc.IdHorario = hc.IdHorario
+INNER JOIN Clases cl
+    ON hc.IdClase = cl.IdClase
+WHERE cc.Estado = 1;

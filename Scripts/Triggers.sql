@@ -2,7 +2,6 @@ USE GimnasioPulgarcito;
 GO
 
 -- Aca van los Triggers
--- Este trigger evita que un cliente con estado = 0 se anote a una clase
 
 CREATE TRIGGER tr_Agregar_ClaseCliente ON ClasesClientes
 AFTER INSERT
@@ -25,7 +24,6 @@ END;
 
 GO;
 
--- Profesor inactivo NO puede dar clases
 
 CREATE TRIGGER tr_Agregar_ClaseProfesor ON ClasesProfesores
 AFTER INSERT
