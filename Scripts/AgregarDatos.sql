@@ -1,5 +1,17 @@
 ﻿USE GimnasioPulgarcito
 
+SELECT * FROM Persona
+SELECT * FROM Cargos
+SELECT * FROM Clientes
+SELECT * FROM Empleados
+SELECT * FROM Profesores
+SELECT * FROM Membresias
+SELECT * FROM MembresiasClientes
+SELECT * FROM Clases
+SELECT * FROM ClasesProfesores
+SELECT * FROM HorariosClases
+SELECT * FROM ClasesClientes
+
 -- ============================================================
 -- 1. PERSONA
 -- ============================================================
