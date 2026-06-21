@@ -14,25 +14,21 @@ CREATE PROCEDURE sp_AltaPersona
   @IdPersonaNueva  int OUTPUT
 AS
 BEGIN
-  SET NOCOUNT ON;
-
-  -- ================
-  -- VALIDACIONES
-  -- ================
-
-  IF LTRIM(RTRIM(ISNULL(@Nombre, ''))) = ''
+  
+-- Valida que no sea null. 
+  IF (ISNULL(@Nombre, '')) = ''
   BEGIN
     RAISERROR('El Nombre es obligatorio.', 16, 1);
     RETURN;
   END
-
-  IF LTRIM(RTRIM(ISNULL(@Apellido, ''))) = ''
+-- Valida que no sea null.
+  IF (ISNULL(@Apellido, '')) = ''
   BEGIN
     RAISERROR('El Apellido es obligatorio.', 16, 1);
     RETURN;
   END
-
-  IF LTRIM(RTRIM(ISNULL(@DNI, ''))) = ''
+-- Valida que no sea null.
+  IF (ISNULL(@DNI, '')) = ''
   BEGIN
     RAISERROR('El DNI es obligatorio.', 16, 1);
     RETURN;
@@ -50,9 +46,7 @@ BEGIN
     RETURN;
   END
 
-  -- ================
-  -- TRANSACCIÓN
-  -- ================
+  
   BEGIN TRANSACTION;
 
   BEGIN TRY
@@ -85,11 +79,7 @@ CREATE PROCEDURE sp_AltaCliente
 AS
 BEGIN
   SET NOCOUNT ON;
-
-  -- ===============
-  -- VALIDACIONES
-  -- ===============
-
+  
   IF NOT EXISTS (SELECT 1 FROM Persona WHERE IdPersona = @IdPersona)
   BEGIN
     RAISERROR('No existe una persona con ese IdPersona.', 16, 1);
@@ -102,9 +92,6 @@ BEGIN
     RETURN;
   END
 
-  -- =============
-  -- TRANSACCIÓN
-  -- =============
   BEGIN TRANSACTION;
 
   BEGIN TRY
@@ -145,11 +132,7 @@ AS
 BEGIN
   SET NOCOUNT ON;
 
-  -- =============
-  -- VALIDACIONES
-  -- =============
-
-  IF NOT EXISTS (SELECT 1 FROM Persona WHERE IdPersona = @IdPersona)
+    IF NOT EXISTS (SELECT 1 FROM Persona WHERE IdPersona = @IdPersona)
   BEGIN
     RAISERROR('No existe una persona con ese IdPersona.', 16, 1);
     RETURN;
@@ -178,9 +161,7 @@ BEGIN
     RAISERROR('La fecha de ingreso es obligatoria.', 16, 1);
     RETURN;
   END
-
-  -- Si es profesor pero el cargo no corresponde, advertimos
-  -- (supuesto: IdCargo = 2 es Instructor, ajustá el valor si cambia)
+ 
   IF @EsProfesor = 1 AND NOT EXISTS (
     SELECT 1 FROM Cargos WHERE IdCargo = @IdCargo AND Nombre = 'Instructor'
   )
@@ -188,10 +169,7 @@ BEGIN
     RAISERROR('Para registrar como profesor, el cargo debe ser Instructor.', 16, 1);
     RETURN;
   END
-
-  -- ============
-  -- TRANSACCIÓN
-  -- ============
+    
   BEGIN TRANSACTION;
 
   BEGIN TRY
