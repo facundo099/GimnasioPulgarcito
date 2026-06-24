@@ -52,15 +52,23 @@ WHERE hc.Estado = 1
     
 GO;
 
-CREATE VIEW v_InscripcionesClases AS
+CREATE VIEW VW_inscripciones AS
 SELECT 
     hc.IdHorario,
     cl.Nombre AS Clase,
-    hc.DiaSemana,
-    hc.HoraInicio,
-    p_cli.Nombre + ' ' + p_cli.Apellido AS Alumno,
-    p_cli.Telefono AS TelefonoAlumno,
-    cc.FechaInscripcion AS FechaDeAlta
+    CASE hc.DiaSemana
+        WHEN 1 THEN 'Lunes'
+        WHEN 2 THEN 'Martes'
+        WHEN 3 THEN 'Miércoles'
+        WHEN 4 THEN 'Jueves'
+        WHEN 5 THEN 'Viernes'
+        WHEN 6 THEN 'Sábado'
+        WHEN 7 THEN 'Domingo'
+    END AS DiaSemana,
+    CONVERT(VARCHAR(8), hc.HoraInicio, 108) AS 'Hora Inicio',
+    p_cli.Nombre + ' ' + p_cli.Apellido AS Cliente,
+    p_cli.Telefono AS 'Telefono Alumno',
+    cc.FechaInscripcion AS 'Fecha De Alta'
 FROM ClasesClientes cc
 INNER JOIN Clientes c
     ON cc.IdCliente = c.IdCliente
@@ -71,3 +79,4 @@ INNER JOIN HorariosClases hc
 INNER JOIN Clases cl
     ON hc.IdClase = cl.IdClase
 WHERE cc.Estado = 1;
+
