@@ -1,20 +1,5 @@
 ﻿USE GimnasioPulgarcito
 
-SELECT * FROM Persona
-SELECT * FROM Cargos
-SELECT * FROM Clientes
-SELECT * FROM Empleados
-SELECT * FROM Profesores
-SELECT * FROM Membresias
-SELECT * FROM MembresiasClientes
-SELECT * FROM Clases
-SELECT * FROM ClasesProfesores
-SELECT * FROM HorariosClases
-SELECT * FROM ClasesClientes
-
--- ============================================================
--- 1. PERSONA
--- ============================================================
 INSERT INTO Persona (Nombre, Apellido, DNI, FechaNacimiento, Telefono, Email, Direccion) VALUES
 ('Juan', 'García', '30111222', '1990-03-15', '1144001100', 'juan.garcia@email.com', 'Av. Santa Fe 1234, CABA'),
 ('María', 'López', '32222333', '1988-07-22', '1155002200', 'maria.lopez@email.com', 'Corrientes 567, CABA'),
@@ -35,9 +20,6 @@ INSERT INTO Persona (Nombre, Apellido, DNI, FechaNacimiento, Telefono, Email, Di
 ('Paula', 'Dominguez', '35555222', '1994-09-04', '1198770011', 'paula.dominguez@gmail.com', 'Corrientes 840'),
 ('Leandro', 'Navarro', '27666111', '1983-06-25', '1119881122', 'leandro.navarro@gmail.com', 'San Juan 320');
 
--- ============================================================
--- 2. CARGOS
--- ============================================================
 INSERT INTO Cargos (Nombre, Descripcion) VALUES
 ('Recepcionista', 'Atención al público, gestión de turnos e inscripciones'),
 ('Instructor', 'Dicta clases grupales y supervisa rutinas'),
@@ -45,10 +27,6 @@ INSERT INTO Cargos (Nombre, Descripcion) VALUES
 ('Administrativo', 'Gestión de pagos, facturación y legajos'),
 ('Gerente', 'Responsable general de la operación del gimnasio');
 
--- ============================================================
--- 3. CLIENTES
--- (Personas 6, 7, 8, 9, 10 serán clientes)
--- ============================================================
 INSERT INTO Clientes
 (IdPersona, FechaAlta, FechaBaja, Estado)
 VALUES
@@ -63,10 +41,6 @@ VALUES
 (14, '2025-12-15', '2026-05-30', 0),
 (15, '2026-01-18', '2026-06-10', 0);
 
--- ============================================================
--- 4. EMPLEADOS
--- (Personas 1, 2, 3, 4, 5 serán empleados)
--- ============================================================
 INSERT INTO Empleados
 (IdPersona, IdCargo, FechaIngreso, FechaBaja, ValorHora, Estado)
 VALUES
@@ -79,27 +53,17 @@ VALUES
 (17, 1, '2025-08-10', '2026-03-15', 7200.00, 0),
 (18, 3, '2025-07-01', '2026-04-20', 12000.00, 0);
 
--- ============================================================
--- 5. PROFESORES
--- (Solo los instructores: empleados 2 y 3 → María y Carlos)
--- ============================================================
 INSERT INTO Profesores (IdEmpleado, Especialidad) VALUES
 (2, 'Yoga y Pilates'),
 (3, 'Musculación y CrossFit');
 
--- ============================================================
--- 6. MEMBRESIAS
--- ============================================================
 INSERT INTO Membresias (Nombre, Descripcion, Precio, DuracionDias, AccesoClases, AccesoPiscina, Estado) VALUES
-('Plan Básico',      'Acceso a sala de musculación',                   15000.00, 30, 0, 0, 1),
-('Plan Clases',      'Acceso a sala y clases grupales',                22000.00, 30, 1, 0, 1),
-('Plan Full',        'Acceso completo incluyendo piscina y clases',    35000.00, 30, 1, 1, 1),
-('Plan Trimestral',  'Plan básico con duración de 3 meses',            40000.00, 90, 0, 0, 1),
-('Plan Semestral',   'Plan full con duración de 6 meses',              90000.00, 180,1, 1, 1);
+('Plan Básico', 'Acceso a sala de musculación', 15000.00, 30, 0, 0, 1),
+('Plan Clases', 'Acceso a sala y clases grupales', 22000.00, 30, 1, 0, 1),
+('Plan Full', 'Acceso completo incluyendo piscina y clases', 35000.00, 30, 1, 1, 1),
+('Plan Trimestral', 'Plan básico con duración de 3 meses', 40000.00, 90, 0, 0, 1),
+('Plan Semestral', 'Plan full con duración de 6 meses', 90000.00, 180,1, 1, 1);
 
--- ============================================================
--- 7. MEMBRESIAS CLIENTES
--- ============================================================
 INSERT INTO MembresiasClientes (IdCliente, IdMembresia, FechaInicio, FechaFin, EsRenovacion, Estado) VALUES
 (1, 2, '2024-01-10', '2024-02-09', 0, 1),  
 (1, 2, '2024-02-10', '2024-03-10', 1, 1),  
@@ -108,19 +72,13 @@ INSERT INTO MembresiasClientes (IdCliente, IdMembresia, FechaInicio, FechaFin, E
 (4, 4, '2024-04-05', '2024-07-03', 0, 1),  
 (5, 5, '2024-05-01', '2024-10-27', 0, 1);  
 
--- ============================================================
--- 8. CLASES
--- ============================================================
 INSERT INTO Clases (Nombre, Descripcion, Estado) VALUES
-('Yoga',        'Clase de yoga para todos los niveles',              1),
-('Pilates',     'Ejercicios de suelo y elongación',                  1),
-('CrossFit',    'Entrenamiento funcional de alta intensidad',        1),
+('Yoga', 'Clase de yoga para todos los niveles',              1),
+('Pilates', 'Ejercicios de suelo y elongación',                  1),
+('CrossFit', 'Entrenamiento funcional de alta intensidad',        1),
 ('Musculación', 'Rutinas de fuerza con supervisión del instructor',  1),
-('Spinning',    'Ciclismo indoor con música y ritmo',                1);
+('Spinning', 'Ciclismo indoor con música y ritmo',                1);
 
--- ============================================================
--- 9. CLASES PROFESORES
--- ============================================================
 INSERT INTO ClasesProfesores (IdClase, IdProfesor, Estado) VALUES
 (1, 1, 1),  
 (2, 1, 1),  
@@ -129,10 +87,6 @@ INSERT INTO ClasesProfesores (IdClase, IdProfesor, Estado) VALUES
 (5, 1, 1),  
 (5, 2, 1);  
 
--- ============================================================
--- 10. HORARIOS CLASES
--- (DiaSemana: 1=Lunes ... 7=Domingo)
--- ============================================================
 INSERT INTO HorariosClases (IdClase, DiaSemana, HoraInicio, HoraFin, Estado) VALUES
 (1, 1, '08:00', '09:00', 1),  
 (1, 3, '08:00', '09:00', 1),  
@@ -145,9 +99,6 @@ INSERT INTO HorariosClases (IdClase, DiaSemana, HoraInicio, HoraFin, Estado) VAL
 (5, 6, '10:00', '11:00', 1),  
 (5, 7, '10:00', '11:00', 1);  
 
--- ============================================================
--- 11. CLASES CLIENTES
--- ============================================================
 INSERT INTO ClasesClientes (IdHorario, IdCliente, FechaInscripcion, FechaBaja, Estado) VALUES
 (1, 1, '2024-01-11', NULL, 1),  
 (3, 1, '2024-01-11', NULL, 1),  
