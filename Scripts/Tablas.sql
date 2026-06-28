@@ -1,7 +1,7 @@
 CREATE DATABASE GimnasioPulgarcito;
-GO
+GO;
 USE GimnasioPulgarcito;
-GO
+GO;
 
 CREATE TABLE [Persona] (
   [IdPersona] int IDENTITY(1,1) PRIMARY KEY,

@@ -1,7 +1,6 @@
 USE GimnasioPulgarcito;
 GO
 
--- Aca van las vistas
 
 CREATE VIEW vw_Empleados AS 
 SELECT

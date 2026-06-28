@@ -1,8 +1,6 @@
 USE GimnasioPulgarcito;
 GO;
 
--- Aca van los Triggers
-
 CREATE TRIGGER tr_Agregar_ClaseCliente ON ClasesClientes
 AFTER INSERT
 AS
@@ -72,22 +70,51 @@ END;
 
 
 
-
 -- Pruebas: tr_Agregar_ClaseCliente
 
 SELECT * FROM Clientes
--- Caso 1: FALLA - cliente inactivo (IdCliente 2, Maria)
+
 INSERT INTO ClasesClientes (IdHorario, IdCliente)
 VALUES (1, 2)
--- Resultado esperado: error 'El cliente no está activo.'
 
 SELECT * FROM ClasesClientes
--- Resultado esperado: tabla vacía
 
--- Caso 2: FUNCIONA - cliente activo (IdCliente 1, Juan)
 INSERT INTO ClasesClientes (IdHorario, IdCliente)
 VALUES (1, 1)
--- Resultado esperado: inserción exitosa
 
 SELECT * FROM ClasesClientes
--- Resultado esperado: 1 fila cargada
+
+
+
+-- Pruebas: tr_Agregar_ClaseProfesor
+
+SELECT * FROM Profesores
+SELECT * FROM Empleados
+
+INSERT INTO ClasesProfesores (IdClase, IdProfesor)
+VALUES (1, 4)
+
+SELECT * FROM ClasesProfesores
+
+INSERT INTO ClasesProfesores (IdClase, IdProfesor)
+VALUES (1, 3)
+
+SELECT * FROM ClasesProfesores
+
+
+
+-- Pruebas: tr_Agregar_MembresiaCliente
+
+SELECT * FROM Clientes
+
+INSERT INTO MembresiasClientes (IdCliente, IdMembresia, FechaInicio, FechaFin)
+VALUES (1, 1, '2020-01-01', '2020-02-01')
+
+SELECT * FROM MembresiasClientes
+
+INSERT INTO MembresiasClientes (IdCliente, IdMembresia, FechaInicio, FechaFin)
+VALUES (1, 1, '2024-01-01', '2024-02-01')
+
+SELECT * FROM MembresiasClientes
+
+

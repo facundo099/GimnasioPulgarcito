@@ -108,3 +108,6 @@ INSERT INTO ClasesClientes (IdHorario, IdCliente, FechaInscripcion, FechaBaja, E
 (9, 5, '2024-05-02', NULL, 1),  
 (2, 5, '2024-05-02', NULL, 1),  
 (6, 3, '2024-03-21', '2024-04-01', 0); 
+
+
+
