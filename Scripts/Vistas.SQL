@@ -66,7 +66,7 @@ SELECT
     END AS DiaSemana,
     CONVERT(VARCHAR(8), hc.HoraInicio, 108) AS 'Hora Inicio',
     p_cli.Nombre + ' ' + p_cli.Apellido AS Cliente,
-    p_cli.Telefono AS 'Telefono Alumno',
+    p_cli.Telefono AS 'Telefono',
     cc.FechaInscripcion AS 'Fecha De Alta'
 FROM ClasesClientes cc
 INNER JOIN Clientes c
